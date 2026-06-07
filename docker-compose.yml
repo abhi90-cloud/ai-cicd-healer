@@ -1,0 +1,33 @@
+﻿version: '3.8'
+services:
+  api:
+    build: .
+    container_name: cicd-healer-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./data/enterprise.db
+      - SECRET_KEY=enterprise-production-secret
+      - ENVIRONMENT=production
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v3/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: cicd-healer-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
+    restart: unless-stopped

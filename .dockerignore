@@ -1,0 +1,12 @@
+﻿venv/
+__pycache__/
+*.pyc
+.git/
+.gitignore
+.env
+*.db
+models/*.pkl
+logs/
+data/
+.vscode/
+.idea/
