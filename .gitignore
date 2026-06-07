@@ -1,0 +1,17 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.so
+venv/
+.env
+# Models & Data
+models/*.pkl
+data/*.db
+# IDE
+.vscode/
+.idea/
+# Logs
+logs/
+*.log
+# Streamlit
+.streamlit/secrets.toml
