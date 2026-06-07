@@ -1,0 +1,10 @@
+{
+  "accuracy": 0.723,
+  "auc": 0.708616082893775,
+  "individual_models": {
+    "xgboost": 0.709,
+    "lightgbm": 0.712,
+    "random_forest": 0.7415,
+    "gradient_boosting": 0.7185
+  }
+}
