@@ -1,32 +1,15 @@
-﻿name: AI CI/CD Pipeline
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+﻿name: CI Pipeline
+on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-      - name: Install dependencies
+          python-version: "3.10"
+      - name: Install deps
         run: |
-          pip install -r requirements.txt
+          pip install fastapi uvicorn pydantic python-multipart sqlalchemy redis pytest pytest-cov requests httpx python-dotenv click tqdm joblib scikit-learn xgboost lightgbm pandas numpy matplotlib seaborn plotly streamlit prometheus-client python-json-logger starlette
       - name: Run tests
-        run: |
-          pytest tests/ -v --tb=short
-      - name: Train model
-        run: |
-          python ml_models/train_model.py
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Deploy confirmation
-        run: echo "All tests passed! Ready to deploy to VPS."
+        run: pytest tests/ -v
